@@ -15,7 +15,7 @@ export default function Profile({data}) {
                  {userKey.map((ele,index) =>{
                     if(ele === 'match')
                     {
-                        return;
+                        return <></>;
                     }
                     return(
                         <h3>{JSON.parse(sessionStorage.getItem(ele)).name}</h3>
