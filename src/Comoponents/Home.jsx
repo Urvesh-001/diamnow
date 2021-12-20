@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { useHistory  } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function Home({match}) {
+export default function Home() {
 
     const history = useHistory();
     const [name,setName] = useState("");
@@ -13,7 +13,6 @@ export default function Home({match}) {
 
     
     const submitform =  (e) =>{  
-        match = false;
         e.preventDefault();
         if(!name || !userName || !email || !password || !confirmpassword )
         {
