@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { useHistory  } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-export default function Home() {
+export default function Home({setMatch}) {
 
     const history = useHistory();
     const [name,setName] = useState("");
@@ -14,6 +14,8 @@ export default function Home() {
     
     const submitform =  (e) =>{  
         e.preventDefault();
+        setMatch(false);
+        const userKey = Object.keys(sessionStorage);
         if(!name || !userName || !email || !password || !confirmpassword )
         {
             return toast.warning("Please Fill Empty Fields")
@@ -24,6 +26,11 @@ export default function Home() {
             return toast.error("Password Do Not Match")
         }
       
+        if(userKey.includes(email))
+        {
+            setMatch(true);
+            return toast.error("Email already exist!")
+        }
        
         const newData = {
             name:name,
@@ -32,8 +39,8 @@ export default function Home() {
             password:password,
             confirmpassword:confirmpassword
         }
-        var match = sessionStorage.getItem(email)
-        console.log(match);
+      
+       
        
         sessionStorage.setItem(email,JSON.stringify(newData))
         history.push('/login')
@@ -41,13 +48,14 @@ export default function Home() {
 
     return (
         <div className="container">
+            <h2>Registration page </h2>
             <form action='' onSubmit={submitform}>
                 <input type='text' placeholder='Name' onChange={(e)=>setName(e.target.value)}/>
                 <input type='text' placeholder='Username' onChange={(e)=>setUserName(e.target.value)} />
                 <input type='text' placeholder='Email' onChange={(e)=>setEmail(e.target.value)} />
                 <input type='text' placeholder='Password'  onChange={(e)=>setPassword(e.target.value)} />
                 <input type='text' placeholder='Confirm Password' onChange={(e)=>setConfirmPassword(e.target.value)} />
-                <button type='submit'>Login</button>
+                <button type='submit'>SignUp</button>
                 <br/>
             </form>
         </div>
